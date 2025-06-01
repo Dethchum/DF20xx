@@ -1,0 +1,57 @@
+[gd_scene load_steps=6 format=3 uid="uid://dkhxw511qpxo1"]
+
+[ext_resource type="PackedScene" uid="uid://c2qf1upfe44xi" path="res://johnnypunch.tscn" id="1_jnfw7"]
+[ext_resource type="Script" path="res://stateinfo.gd" id="1_pncor"]
+[ext_resource type="Script" path="res://input info.gd" id="1_r6bpr"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_q1juw"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gm28y"]
+size = Vector3(9.97937, 1, 1)
+
+[node name="Game" type="Node3D"]
+
+[node name="Stage" type="Node" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Stage"]
+transform = Transform3D(9.77211, 0, 0, 0, 0.977211, 0, 0, 0, 6.1675, 0, -0.496219, 0)
+mesh = SubResource("BoxMesh_q1juw")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Stage/MeshInstance3D"]
+transform = Transform3D(0.1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Stage/MeshInstance3D/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00384521, 0, 0)
+shape = SubResource("BoxShape3D_gm28y")
+
+[node name="Camera3D" type="Camera3D" parent="Stage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.79635, 3.99562)
+
+[node name="debug text" type="Control" parent="Stage/Camera3D"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 351.0
+offset_bottom = 58.0
+
+[node name="stateinfo" type="Label" parent="Stage/Camera3D/debug text"]
+layout_mode = 0
+offset_right = 335.0
+offset_bottom = 72.0
+text = "Placeholder Text"
+horizontal_alignment = 1
+script = ExtResource("1_pncor")
+
+[node name="input info" type="Label" parent="Stage/Camera3D/debug text"]
+layout_mode = 0
+offset_left = 23.0
+offset_top = 232.0
+offset_right = 267.0
+offset_bottom = 310.0
+text = "www"
+vertical_alignment = 1
+script = ExtResource("1_r6bpr")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Stage"]
+transform = Transform3D(0.000694326, 0.999931, 0.0116903, -0.361156, -0.0106505, 0.932444, 0.932505, -0.00486945, 0.361124, 0, 4.17842, 2.94168)
+
+[node name="Johnnypunch" parent="." instance=ExtResource("1_jnfw7")]
