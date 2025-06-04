@@ -55,3 +55,4 @@ script = ExtResource("1_r6bpr")
 transform = Transform3D(0.000694326, 0.999931, 0.0116903, -0.361156, -0.0106505, 0.932444, 0.932505, -0.00486945, 0.361124, 0, 4.17842, 2.94168)
 
 [node name="Johnnypunch" parent="." instance=ExtResource("1_jnfw7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0505723, 0.361326, -0.0287704)
