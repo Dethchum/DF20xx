@@ -1,5 +1,5 @@
 extends CharacterBody3D
-
+@onready var animplayer = $jp_idle03/AnimationPlayer2
 @onready var stateprint = $"../Stage/Camera3D/debug text/stateinfo"
 @onready var inputprint = $"../Stage/Camera3D/debug text/input info"
 const SPEED = 5.0
@@ -51,14 +51,18 @@ func initate_state_machine():
 	
 	state_machine.initialize(self)
 	state_machine.set_active(true)
+	
+	
 
 #functions for starting and updating the states
+#plays idle animation when in idle state
 func idle_start():
-	pass
+		animplayer.play("Idleanim")
 
 func idle_update(delta: float):
 	if velocity.x != 0:
 		state_machine.dispatch(&"to_walk")
+		animplayer.play("Idleanim")
 	
 
 func walk_start():
