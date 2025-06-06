@@ -14,9 +14,10 @@ var state_machine: LimboHSM
 func _ready():
 	initate_state_machine()
 
-#walking left and right couldnt get it to work with multiple control layouts
+#controls, couldnt get it to work with multiple control layouts
 func _physics_process(delta):
 	stateprint.text = str(state_machine.get_active_state())
+	var crouch = Input.get_action_raw_strength("crouch")
 	var dir = Input.get_action_strength("right") - Input.get_action_strength("left")
 	if dir:
 		velocity.x = dir * SPEED
@@ -48,6 +49,7 @@ func initate_state_machine():
 	#transitioning between states
 	state_machine.add_transition(idle_state, walk_state, &"to_walk")
 	state_machine.add_transition(state_machine.ANYSTATE, idle_state, &"state_ended")
+	state_machine.add_transition(idle_state, crouch_state, &"to_crouch")
 	
 	state_machine.initialize(self)
 	state_machine.set_active(true)
@@ -62,8 +64,8 @@ func idle_start():
 func idle_update(delta: float):
 	if velocity.x != 0:
 		state_machine.dispatch(&"to_walk")
-		animplayer.play("Idleanim")
-	
+	if Input.get_action_strength("crouch"):
+		state_machine.dispatch(&"to_crouch")
 
 func walk_start():
 	pass
@@ -79,7 +81,8 @@ func jump_update(delta: float):
 	pass
 
 func crouch_start():
-	pass
+	animplayer.play("Crouchanim")
 
 func crouch_update(delta: float):
-	pass
+	if Input.is_action_just_released("crouch"):
+		state_machine.dispatch(&"state_ended")
